@@ -11,6 +11,21 @@ export default new Router({
       component: require('@/components/LandingPage').default
     },
     {
+      path: '/account',
+      name: 'account-page',
+      component: require('@/components/Account').default
+    },
+    {
+      path: '/science',
+      name: 'acc-page',
+      component: require('@/components/Science').default
+    },
+    {
+      path: '/datadevicesensor',
+      name: 'data-page',
+      component: require('@/components/DataDeviceSensor').default
+    },
+    {
       path: '*',
       redirect: '/'
     }

@@ -15,7 +15,7 @@ const { Given, When, Then } = require('cucumber');
     return 'pending';
   });
 
-  When('The create link is pressed', function () {
+  When('The Account link is pressed', function () {
     // Write code here that turns the phrase above into concrete actions
     return 'pending';
   });
