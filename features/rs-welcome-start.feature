@@ -8,4 +8,4 @@ Feature: Welcome UI for electron
   Scenario: Create a new public/private key
     Given The welcome navigation meun is present
     When  The Account link is pressed
-    Then  A public/private key generation completes
+    Then  A public private key generation completes
