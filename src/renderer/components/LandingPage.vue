@@ -23,8 +23,12 @@
     </main>
     <div id="secure-start">
       <div id="returning-start">
-        Please enter password and navigate to private key:
+        Please navigate to private key:
         <file-reader @load="text = $event"></file-reader>
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
       <div id="firsttime-start">
         Create a new account: start by enter a password:
