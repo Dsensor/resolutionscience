@@ -1,10 +1,12 @@
 <template>
-  <div id="key-verify">
-    <label class="text-reader">
-      Read File
-      <input type="file" @change="loadTextFromFile">
-    </label>
-
+  <div id="key-system">
+    <div id="key-verify" v-if="fileinputSeen">
+      <label class="text-reader">
+        Read File
+        <input type="file" @change="loadTextFromFile">
+      </label>
+    </div>
+    <div id="keypw-feedback">{{ verifyfeedbackM }}</div>
     <div id="pwinput-prompt" v-if="pwinputSeen">
       Please enter password
       <passwordk v-model="passwordk" :toggle="true" />
@@ -26,6 +28,8 @@
     },
     data: () => ({
       keyObject: {},
+      verifyfeedbackM: '',
+      fileinputSeen: true,
       pwinputSeen: false,
       passwordk: null,
       text: '',
@@ -35,31 +39,34 @@
     }),
     methods: {
       loadTextFromFile (ev) {
-        console.log(ev.target.files[0])
         // prompt for Password
-
-        var address = 'd450dac6421c3e1192bcd45592909065513c34e2'
+        const filepath = ev.target.files[0].path
+        const extractPkey = filepath.substr(filepath.length - 40)
+        var address = extractPkey
         // Specify a data directory (optional; defaults to ~/.ethereum)
-        console.log(__dirname)
-        console.log(process.cwd())
-        var datadir = process.cwd() // ev.target.files[0].path
-        console.log(datadir)
+        var datadir = process.cwd()
         this.keyObject = keythereum.importFromFile(address, datadir)
-        console.log(this.keyObject)
         this.pwinputSeen = true
-
-        // const file = ev.target.files[0]
-        // console.log(file)
-        // const reader = new FileReader()
-        // reader.onload = e => this.$emit('load', e.target.result)
-        // reader.readAsText(file)
       },
       verifyKeypw () {
         // verify key password
-        var privateKey = keythereum.recover(this.passwordk, this.keyObject)
+        try {
+          var privateKey = keythereum.recover(this.passwordk, this.keyObject)
+        } catch (err) {
+          this.verifyfeedbackM = 'Password not correct.'
+        }
+        // console.log(privateKey)
         this.passwordk = ''
-        console.log(privateKey)
-        console.log(privateKey.toString())
+        // success
+        if (privateKey) {
+          // passed
+          this.fileinputSeen = false
+          this.pwinputSeen = false
+          this.verifyfeedbackM = 'Key has been verifed.'
+        } else {
+          // password failed
+          this.verifyfeedbackM = 'Password not correct.'
+        }
       }
     }
   }
