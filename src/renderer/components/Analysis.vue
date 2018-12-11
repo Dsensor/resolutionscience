@@ -1,11 +1,9 @@
 <template>
   <div id="account">
-    <h1>Account Settintg and Network Status</h1>
+    <h1>Analysis Toolkit</h1>
     <p>
-      Settings and Networks
+      Apply curiosity with rigour
     </p>
-
-    
   </div>
 </template>
 
